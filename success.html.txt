@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Order Confirmed — LT Finds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#000;--panel:#0b0b12;--line:#1e1b2e;--purple:#a855f7;--purple2:#7c3aed;--text:#fff}
+    body{margin:0;font-family:Inter,system-ui;background:var(--bg);color:var(--text);min-height:100vh;display:grid;place-items:center}
+    .card{width:min(560px,92vw);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(168,85,247,.35);color:#efe4ff}
+    .btn{display:inline-block;margin-top:12px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#0b0014;font-weight:900;text-decoration:none}
+    .muted{color:#a7a7c2}
+    code{background:#0e0e16;border:1px solid #1e1b2e;border-radius:10px;padding:6px 8px;display:inline-block}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 style="margin:0 0 6px">✅ Order confirmed</h1>
+    <div class="pill" id="statusPill">Checking payment…</div>
+
+    <div style="margin-top:14px">
+      <div class="muted">Order number</div>
+      <div style="font-size:24px;font-weight:900" id="orderNumber">—</div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div class="muted">Item</div>
+      <div id="itemTitle">—</div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div class="muted">Support</div>
+      <div>Contact: <code id="supportEmail">—</code></div>
+    </div>
+
+    <a class="btn" href="/">Back to shop</a>
+  </div>
+
+<script>
+(async function(){
+  const params = new URLSearchParams(location.search);
+  const session_id = params.get("session_id");
+  const pill = document.getElementById("statusPill");
+
+  if(!session_id){
+    pill.textContent = "Missing session_id";
+    return;
+  }
+
+  const res = await fetch(`/api/get-session?session_id=${encodeURIComponent(session_id)}`);
+  if(!res.ok){
+    pill.textContent = "Could not load order details";
+    return;
+  }
+  const data = await res.json();
+
+  document.getElementById("orderNumber").textContent = data.orderNumber || "LT-UNKNOWN";
+  document.getElementById("itemTitle").textContent = data.title || "—";
+  document.getElementById("supportEmail").textContent = data.supportEmail || "support@example.com";
+
+  if(data.payment_status === "paid"){
+    pill.textContent = "Payment received";
+  } else {
+    pill.textContent = `Payment status: ${data.payment_status || "unknown"}`;
+  }
+})();
+</script>
+</body>
+</html>

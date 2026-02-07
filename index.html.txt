@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LT Finds — Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;
+  --panel:#0b0b12;
+  --text:#EAEAEA;
+  --muted:#a7a7c2;
+  --line:#1e1b2e;
+
+  --purple:#a855f7;
+  --purple-2:#7c3aed;
+
+  --radius:14px;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui;overflow-x:hidden}
+header{
+  background:#07070d;
+  padding:16px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:10
+}
+.logo{
+  width:42px;height:42px;
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  border-radius:12px;
+  display:grid;place-items:center;
+  font-weight:900;color:#0b0014;
+  box-shadow:0 12px 28px rgba(168,85,247,.28);
+  overflow:hidden;
+}
+.logo img{width:100%;height:100%;object-fit:cover}
+.container{max-width:1150px;margin:auto;padding:16px}
+
+.promo{
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:18px 20px;margin:14px auto 8px;border-radius:18px;
+  background:radial-gradient(120% 160% at 0% 0%,
+    rgba(168,85,247,.22),
+    rgba(124,58,237,.12) 45%,
+    rgba(16,19,23,.55) 70%
+  ), #07070d;
+  border:1px solid #221a3b;
+  box-shadow:0 10px 30px rgba(168,85,247,.18);
+  text-decoration:none;
+  transition:transform .25s ease, box-shadow .25s ease
+}
+.promo:hover{
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:0 18px 50px rgba(168,85,247,.45)
+}
+.promo-line1{font-weight:900;letter-spacing:.03em;font-size:28px;color:#C6CCD4}
+.promo-line2{font-weight:900;font-size:42px;color:#d6b6ff;text-shadow:0 0 20px rgba(168,85,247,.38)}
+.promo-line3{font-weight:900;font-size:26px;color:#C6CCD4}
+.promo-logo{
+  width:100px;height:100px;border-radius:22px;overflow:hidden;
+  box-shadow:0 0 0 8px rgba(168,85,247,.08),0 18px 40px rgba(168,85,247,.25)
+}
+.promo-logo img{width:100%;height:100%;object-fit:cover}
+
+.hero{display:grid;place-items:center;padding:20px 14px 8px}
+.big-search{width:min(820px,92vw);display:flex;gap:10px}
+.big-search input{
+  flex:1;font-size:20px;padding:18px;
+  border-radius:16px;border:1px solid var(--line);
+  background:#0E0E16;color:var(--text)
+}
+.big-search .btn{
+  padding:16px 18px;border-radius:14px;font-size:16px;
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  color:#0b0014;font-weight:900;border:none;cursor:pointer
+}
+
+.panel{
+  display:none;gap:10px;grid-template-columns:1.6fr auto;
+  align-items:center;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px;box-shadow:var(--shadow);margin:12px 0
+}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tab{
+  background:#0E0E16;color:var(--text);
+  border:1px solid var(--line);
+  padding:8px 12px;border-radius:999px;
+  font-weight:800;cursor:pointer;transition:all .3s ease
+}
+.tab.active{
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  color:#0b0014
+}
+.tab:hover{transform:translateY(-2px);box-shadow:0 0 12px rgba(168,85,247,.6)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{
+  position:relative;background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
+  transition:all .25s ease
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 26px rgba(168,85,247,.35), 0 6px 18px rgba(0,0,0,.35);
+  border-color:rgba(168,85,247,.35)
+}
+.card img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;background:#0E0E16
+}
+.card .meta{padding:12px}
+.card .title{font-weight:900}
+.card .price{color:var(--muted);font-size:14px;margin-top:6px}
+
+.price-pill{
+  background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(124,58,237,.22));
+  border:1px solid rgba(168,85,247,.28);
+  border-radius:999px;
+  padding:5px 10px;
+  color:#efe4ff;
+  font-weight:900;
+  display:inline-block
+}
+.btn.buy{
+  display:inline-block;padding:10px 14px;border-radius:12px;
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  color:#0b0014;text-decoration:none;font-weight:900;
+  border:1px solid rgba(168,85,247,.35);
+  width:100%;
+  text-align:center;
+}
+
+.fav-btn{
+  position:absolute;right:10px;top:10px;
+  width:36px;height:36px;border-radius:999px;
+  border:1px solid var(--line);
+  background:#0E0E16;
+  display:grid;place-items:center;
+  cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.35);
+  font-size:18px;line-height:1;color:#9AA4B2
+}
+.fav-btn.active{
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  border-color:rgba(168,85,247,.45);
+  color:#0b0014
+}
+
+.featured-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:12px;padding:6px 2px 10px;border-radius:12px
+}
+.fthumb{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .25s ease, box-shadow .25s ease
+}
+.fthumb:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 32px rgba(168,85,247,.30)}
+.fthumb img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#0E0E16}
+
+.hidden{display:none!important}
+#status{margin:8px 0;color:#9AA4B2;font-size:13px}
+
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.65);
+  display:none;align-items:center;justify-content:center;z-index:60
+}
+.modal.show{display:flex}
+.modal-card{
+  background:#0E0E16;border:1px solid var(--line);
+  border-radius:16px;max-width:520px;width:min(92vw,520px);
+  padding:18px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.5);
+  color:#fff;text-align:center
+}
+.modal-card h3{
+  margin:0 0 8px;font-size:26px;font-weight:900;
+  color:#fff;text-shadow:0 0 15px rgba(168,85,247,.7)
+}
+.modal-card p{margin:0 0 14px;color:#fff;font-size:16px;line-height:1.6}
+.modal-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.modal-actions .btn{
+  padding:10px 18px;border-radius:12px;border:1px solid #2a2144;
+  background:#141420;color:#fff;cursor:pointer;font-weight:800;
+  transition:all .25s ease
+}
+.modal-actions .btn.primary{
+  background:linear-gradient(135deg,var(--purple),var(--purple-2));
+  color:#fff;border:none;font-weight:900;
+  box-shadow:0 0 25px rgba(168,85,247,.35)
+}
+.modal-actions .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(168,85,247,.9)}
+.modal-actions .btn:hover{background:#19192a;border-color:rgba(255,255,255,.2)}
+
+#splash{
+  position:fixed;inset:0;background:#000;
+  display:grid;place-items:center;z-index:1000;
+  opacity:1;transition:opacity .6s ease;
+  animation:splashHide 4s ease forwards
+}
+#splash.hide{opacity:0;pointer-events:none;visibility:hidden}
+#splash .scontent{display:grid;gap:18px;justify-items:center;animation:popIn .6s ease}
+#splash .slogo{
+  width:min(140px,35vw);height:min(140px,35vw);
+  border-radius:22px;object-fit:cover;
+  box-shadow:0 0 0 8px rgba(168,85,247,.08),0 18px 40px rgba(168,85,247,.25)
+}
+#splash .sname{
+  font-weight:900;letter-spacing:.5px;
+  font-size:clamp(28px,5vw,56px);
+  display:flex;gap:.35em;align-items:baseline;
+  text-shadow:0 0 20px rgba(168,85,247,.5)
+}
+#splash .sname .mz{color:var(--purple);text-shadow:0 0 15px rgba(168,85,247,.8)}
+#splash .sname .finds{color:#B9C0C7;text-shadow:0 0 12px rgba(255,255,255,.25)}
+@keyframes splashHide{0%{opacity:1}98%{opacity:.02}100%{opacity:0;pointer-events:none;visibility:hidden}}
+</style>
+</head>
+
+<body>
+<div id="splash">
+  <div class="scontent">
+    <img class="slogo" src="logo.png" alt="LT Logo">
+    <div class="sname"><span class="mz">LT</span><span class="finds">finds</span></div>
+  </div>
+</div>
+
+<header>
+  <div class="logo"><img src="logo.png" alt="LT"></div>
+  <div>
+    <div style="font-weight:900;font-size:18px">LT Finds</div>
+    <div style="font-size:12px;color:#9AA4B2">Catalog</div>
+  </div>
+</header>
+
+<main class="container">
+  <a class="promo" href="https://www.acbuy.com/login?loginStatus=register&code=SD38RK" target="_blank" rel="noopener">
+    <div>
+      <div class="promo-line1">SIGN UP TO</div>
+      <div class="promo-line2">ACBUY</div>
+      <div class="promo-line3">FOR A $500 VOUCHER</div>
+    </div>
+    <div class="promo-logo"><img src="logo.png" alt="LT Logo"></div>
+  </a>
+
+  <section class="hero">
+    <form id="searchForm" class="big-search">
+      <input id="bigSearch" type="text" placeholder="Search all items…" autocomplete="off">
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </section>
+
+  <div class="panel">
+    <label class="btn" for="file">Upload CSV File</label>
+    <input id="file" type="file" accept=".csv" hidden>
+    <select id="sort">
+      <option value="relevance">Sort: Relevance</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+      <option value="title-asc">Title: A → Z</option>
+    </select>
+  </div>
+
+  <nav id="tabs" class="tabs"></nav>
+  <h2>Featured</h2><section id="featured" class="featured-strip"></section>
+  <div id="status">Loading catalog…</div>
+  <h2>All Products</h2><section id="grid" class="grid"></section>
+</main>
+
+<div id="buyModal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <h3>Order now</h3>
+    <p>Continue to the product page to complete your order.</p>
+    <div class="modal-actions">
+      <a id="signupBtn" class="btn primary" target="_blank" rel="noopener">Open ACBUY</a>
+      <button id="continueBtn" class="btn" type="button">Continue</button>
+      <button id="cancelBtn" class="btn" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Config & state =====
+var REF_CODE='SD38RK';
+var SECTIONS=['All','Hoodies','T-shirts','Shoes','Pants','Coats','Accessories','Clothes','Favourites'];
+var PRODUCTS=[], FEATURED=[], FILTER={q:'',sort:'relevance',section:'All'};
+const CSV_URL_PRIMARY='https://cdn.jsdelivr.net/gh/streamermurray-boop/mz-finds-data@main/mzfinds_READY_normalized.csv';
+const CSV_URL_FALLBACK='https://api.allorigins.win/raw?url='+encodeURIComponent('https://raw.githubusercontent.com/streamermurray-boop/mz-finds-data/main/mzfinds_READY_normalized.csv');
+var SIGNUP_URL='https://www.acbuy.com/login?loginStatus=register&code='+encodeURIComponent(REF_CODE);
+var pendingHref=null;
+
+// ===== Small helpers =====
+function $(s){return document.querySelector(s)}
+function log(m){var el=$('#status'); if(el) el.textContent=m}
+function esc(s){s=String(s||'');return s.replace(/[&<>]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])})}
+function toLower(s){return String(s||'').toLowerCase()}
+function removeNonNumber(s){return String(s||'').replace(/[^0-9.]/g,'')}
+function containsAny(t,arr){t=toLower(t);for(var i=0;i<arr.length;i++){if(t.indexOf(arr[i])>-1)return true}return false}
+function guessSection(t){
+  t=String(t||'');
+  if(containsAny(t,['hoodie','sweat']))return'Hoodies';
+  if(containsAny(t,['t-shirt','tee','tshirt']))return'T-shirts';
+  if(containsAny(t,['shoe','sneaker','trainer','jordan','dunk','yeezy','boot']))return'Shoes';
+  if(containsAny(t,['pant','jean','cargo','short']))return'Pants';
+  if(containsAny(t,['coat','jacket','puffer','vest']))return'Coats';
+  if(containsAny(t,['belt','bag','hat','cap','mask','wallet']))return'Accessories';
+  return'Clothes'
+}
+
+// ===== Pricing rules =====
+function stablePriceFromTitle(title){
+  var choices=[29.99,30.00,35.00];
+  var s=String(title||'');
+  var sum=0;
+  for(var i=0;i<s.length;i++) sum += s.charCodeAt(i);
+  return choices[sum % choices.length];
+}
+function enforceCategoryPrice(section, title){
+  if(section==='Shoes') return 60.00;
+  if(section==='T-shirts') return 25.00;
+  if(section==='Coats') return 85.00;
+  return stablePriceFromTitle(title);
+}
+
+// ===== URL, image, CSV handling =====
+function normalizeLink(u){if(!u) return ''; u=String(u).trim();
+  if(u.slice(0,10).toUpperCase()==='=HYPERLINK'){var inner=u.slice(u.indexOf('(')+1,u.lastIndexOf(')'));var first=inner.split(',')[0];u=first.replace(/^\s*["']|["']\s*$/g,'');}
+  if(/^www\./i.test(u)) u='https://'+u; if(/^(acbuy\.com)/i.test(u)) u='https://'+u;
+  try{var url=new URL(u, location.href); if((url.hostname==='www.google.com'||url.hostname==='google.com')&&url.pathname==='/url'){var q=url.searchParams.get('q')||url.searchParams.get('url'); if(q) url=new URL(q, location.href);} if(url.protocol==='http:') url.protocol='https:'; return url.toString();}catch(e){return u}
+}
+var PLACEHOLDER_IMG='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><rect width="600" height="600" fill="%230b0b12"/><rect x="70" y="70" width="460" height="460" rx="22" fill="%230E0E16" stroke="%231e1b2e"/><path d="M140 420l120-140 95 110 55-70 50 60" fill="none" stroke="%23a855f7" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><circle cx="230" cy="230" r="36" fill="%230E0E16" stroke="%231e1b2e"/></svg>';
+function normalizeImg(u){ if(!u) return ''; u=String(u).trim(); if(u.slice(0,7).toUpperCase()==='=IMAGE(' && u.slice(-1)===')'){u=u.slice(7,-1).replace(/^\s*["']|["']\s*$/g,'');}
+  try{var url=new URL(u, location.href); if((url.hostname==='www.google.com'||url.hostname==='google.com')&&url.pathname==='/url'){var q=url.searchParams.get('q')||url.searchParams.get('url'); if(q) url=new URL(q, location.href);} if(url.protocol==='http:') url.protocol='https:'; return url.toString();}catch(e){return u}
+}
+function toProxy(u){ try{ var s=String(u); if(s.startsWith('https://')) s=s.slice(8); else if(s.startsWith('http://')) s=s.slice(7); else if(s.startsWith('//')) s=s.slice(2); return 'https://images.weserv.nl/?url='+encodeURIComponent(s); }catch(e){ return u; } }
+function hydrateImages(scope){
+  var imgs=scope.querySelectorAll('img[data-src]');
+  for(var i=0;i<imgs.length;i++){
+    (function(img){
+      var raw=normalizeImg(img.getAttribute('data-src')||'');
+      img.referrerPolicy='no-referrer';
+      img.onerror=function(){
+        if(img.dataset.triedProxy!=='1'){ img.dataset.triedProxy='1'; img.src=toProxy(raw); }
+        else { img.src=PLACEHOLDER_IMG; }
+      };
+      try{ img.src=raw || PLACEHOLDER_IMG; } catch(e){ img.onerror(); }
+    })(imgs[i]);
+  }
+}
+function appendRef(url){
+  if(!url) return '#';
+  url=normalizeLink(url);
+  try{
+    var u=new URL(url);
+    u.searchParams.set('code', REF_CODE);
+    if(!u.searchParams.has('utm_source')){
+      u.searchParams.set('utm_source','ltfinds');
+      u.searchParams.set('utm_medium','site');
+    }
+    return u.toString();
+  }catch(e){
+    var sep=url.indexOf('?')>-1?'&':'?';
+    return url+sep+'code='+encodeURIComponent(REF_CODE);
+  }
+}
+function splitLines(t){return t.split(/\r?\n/)}
+function splitCSVLineWith(line,delim){var out=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch=='"'){if(inQ&&line[i+1]=='"'){cur+='"';i++;}else{inQ=!inQ}}else if(ch===delim&&!inQ){out.push(cur);cur=''}else{cur+=ch}}out.push(cur);return out}
+function detectDelimiter(s){var c=(s.match(/,/g)||[]).length;var sc=(s.match(/;/g)||[]).length;var t=(s.match(/\t/g)||[]).length;return sc>c&&sc>t?';':t>c&&t>sc?'\t':','}
+function parseCSV(t){var lines=splitLines(t).filter(function(l){return l.trim()});if(!lines.length)return[];var d=detectDelimiter(lines[0]);var headers=splitCSVLineWith(lines.shift(),d).map(function(x){return x.trim()});var rows=[];for(var i=0;i<lines.length;i++){var cols=splitCSVLineWith(lines[i],d),o={};for(var j=0;j<headers.length;j++){o[headers[j]]=cols[j]?cols[j].trim():''}rows.push(o)}return rows}
+
+// ===== Rendering =====
+function pid(p){return encodeURIComponent((p.Title||'')+'|'+(p._href||''))}
+function card(p){
+  return '<div class="card">\
+    <button class="fav-btn" data-id="'+pid(p)+'" aria-label="Add to favourites">&#9829;</button>\
+    <img data-src="'+esc(p.Image)+'" alt="'+esc(p.Title)+'">\
+    <div class="meta">\
+      <div class="title">'+esc(p.Title)+'</div>\
+      <div class="price"><span class="price-pill">£'+(p.Price||0).toFixed(2)+'</span></div>\
+    </div>\
+    <div class="meta"><a class="btn buy" href="'+esc(p._href)+'" target="_blank" rel="noopener">Order now</a></div>\
+  </div>';
+}
+function renderTabs(){
+  var wrap=$('#tabs');if(!wrap)return;wrap.innerHTML='';
+  for(var i=0;i<SECTIONS.length;i++){
+    (function(sec){
+      var b=document.createElement('button');
+      b.textContent=sec;
+      b.className='tab'+(FILTER.section===sec?' active':'');
+      b.onclick=function(){FILTER.section=sec;renderTabs();renderGrid()};
+      wrap.appendChild(b)
+    })(SECTIONS[i])
+  }
+}
+function filtered(){
+  var q=toLower(FILTER.q);var out=[];var favs=null;
+  var isFavs = FILTER.section==='Favourites';
+  if(isFavs){ try{ favs=new Set(loadFavs()); }catch(e){ favs=new Set(); } }
+  for(var i=0;i<PRODUCTS.length;i++){
+    var p=PRODUCTS[i];
+    if(isFavs){ if(!favs.has(pid(p))) continue; }
+    else if(FILTER.section!=='All'&&p.Section!==FILTER.section) continue;
+    if(q&&toLower(p.Title).indexOf(q)===-1) continue;
+    out.push(p);
+  }
+  return out;
+}
+function renderGrid(){
+  var g=$('#grid');if(!g)return;
+  var items=filtered();var html='';
+  for(var i=0;i<items.length;i++){html+=card(items[i])}
+  g.innerHTML=html;
+  hydrateImages(g);
+  applyFavStates(g);
+  updateFeatured();
+  log('Showing '+items.length+' items.')
+}
+function renderFeatured(){
+  var f=$('#featured');if(!f)return;
+  var shown=FEATURED.slice(0,10);var html='';
+  for(var i=0;i<shown.length;i++){
+    var p=shown[i];
+    html+="<div class='fthumb'><a class='buy' href='"+esc(p._href)+"' target='_blank' rel='noopener'><img data-src='"+esc(p.Image)+"' alt='"+esc(p.Title)+"'></a></div>"
+  }
+  f.innerHTML=html;
+  hydrateImages(f)
+}
+
+// ===== Favourites =====
+var FKEY='lt_favs_v1';
+function loadFavs(){try{return JSON.parse(localStorage.getItem(FKEY)||'[]')}catch(e){return[]}}
+function saveFavs(a){try{localStorage.setItem(FKEY,JSON.stringify(a))}catch(e){}}
+function toggleFav(id){var a=loadFavs();var i=a.indexOf(id);if(i>-1)a.splice(i,1);else a.push(id);saveFavs(a)}
+function applyFavStates(scope){
+  var favs=new Set(loadFavs());
+  var nodes=scope.querySelectorAll('.fav-btn');
+  for(var i=0;i<nodes.length;i++){
+    var b=nodes[i];
+    b.classList.toggle('active',favs.has(b.dataset.id))
+  }
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.fav-btn');
+  if(!b) return;
+  b.classList.toggle('active');
+  toggleFav(b.dataset.id);
+  if(FILTER.section==='Favourites') renderGrid();
+});
+
+// ===== Modal gating =====
+var modal=$('#buyModal'), continueBtn=$('#continueBtn'), signupBtn=$('#signupBtn'), cancelBtn=$('#cancelBtn');
+function openModal(url){pendingHref=url; if(modal) modal.classList.add('show');}
+function closeModal(){if(modal) modal.classList.remove('show'); pendingHref=null}
+if(signupBtn){
+  signupBtn.addEventListener('click',function(e){
+    e.preventDefault();
+    var w=window.open('https://www.acbuy.com/login?loginStatus=register&code='+REF_CODE,'_blank');
+    if(!w || w.closed || typeof w.closed==='undefined'){
+      window.location.href='https://www.acbuy.com/login?loginStatus=register&code='+REF_CODE;
+    }
+    closeModal();
+  });
+}
+if(continueBtn){
+  continueBtn.addEventListener('click',function(){
+    if(!pendingHref) return;
+    var w=window.open(pendingHref,'_blank');
+    if(!w || w.closed || typeof w.closed==='undefined'){
+      window.location.href = pendingHref;
+    }
+    closeModal();
+  });
+}
+if(cancelBtn){cancelBtn.addEventListener('click',closeModal)}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a.buy');
+  if(!a) return;
+  e.preventDefault();
+  openModal(a.href);
+});
+
+// ===== CSV upload + search/sort =====
+function normalize(rows){
+  PRODUCTS=[];
+  for(var i=0;i<rows.length;i++){
+    var o=rows[i];
+    var title=o.Title||o.Name||o.title||o.name||'';
+    if(!title) continue;
+
+    var img=normalizeImg(o.ImageURL||o.Image||o.image||o.imageurl||'');
+    var rawLink=o.Link||o.URL||o.Url||o.href||o.url||o['ACBuy Page']||o['ACBUY Page']||o['ACBUY']||o['Page']||o['Product Link']||'';
+
+    var sec=o.Category||o.category||guessSection(title);
+
+    // ✅ Ignore CSV price. Enforce your rules:
+    var price=enforceCategoryPrice(sec, title);
+
+    var href=appendRef(rawLink);
+    PRODUCTS.push({Title:title,Image:img,Price:price,_href:href,Section:sec});
+  }
+
+  FEATURED=PRODUCTS.slice(0,10);
+  renderTabs();
+  renderFeatured();
+  renderGrid();
+}
+var file=$('#file');
+if(file){
+  file.addEventListener('change',function(e){
+    var f=e.target.files[0];
+    if(!f){log('No file selected');return;}
+    log('Reading '+f.name+' …');
+    f.text().then(function(t){
+      var rows=parseCSV(t);
+      log('Parsed '+rows.length+' rows');
+      normalize(rows);
+    }).catch(function(err){
+      console.error(err);
+      log('Error reading file');
+    });
+    e.target.value='';
+  });
+}
+
+var form=$('#searchForm'), big=$('#bigSearch');
+if(form){
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    FILTER.q=big?big.value:'';
+    renderGrid();
+  });
+  if(big){
+    big.addEventListener('input',function(e){
+      FILTER.q=e.target.value;
+      renderGrid();
+    });
+  }
+}
+
+var sortSel=$('#sort');
+if(sortSel){
+  sortSel.addEventListener('change',function(e){
+    FILTER.sort=e.target.value;
+    if(FILTER.sort==='price-asc')PRODUCTS.sort(function(a,b){return a.Price-b.Price});
+    if(FILTER.sort==='price-desc')PRODUCTS.sort(function(a,b){return b.Price-a.Price});
+    if(FILTER.sort==='title-asc')PRODUCTS.sort(function(a,b){return String(a.Title).localeCompare(String(b.Title))});
+    renderGrid();
+  });
+}
+
+// ===== Featured visibility & splash skip =====
+function updateFeatured(){
+  var box=$('#featured');if(!box)return;
+  var show=!FILTER.q&&FILTER.section==='All';
+  box.classList.toggle('hidden',!show)
+}
+
+function bootFromFixedCSV(){
+  log('Loading catalog…');
+  fetch(CSV_URL_PRIMARY,{mode:'cors',cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('Primary fetch failed: '+r.status); return r.text(); })
+    .catch(function(){
+      return fetch(CSV_URL_FALLBACK,{cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw new Error('Fallback fetch failed: '+r.status); return r.text(); });
+    })
+    .then(function(text){
+      var rows=parseCSV(text);
+      log('Parsed '+rows.length+' rows');
+      normalize(rows);
+    })
+    .catch(function(err){
+      console.error(err);
+      log('Failed to load the catalog file.');
+    });
+}
+window.addEventListener('load', bootFromFixedCSV);
+
+window.addEventListener('load',function(){
+  var s=document.getElementById('splash');
+  function hide(){
+    if(!s)return;
+    s.classList.add('hide');
+    s.style.opacity='0';
+    s.style.pointerEvents='none';
+    s.style.visibility='hidden'
+  }
+  if(s){
+    s.addEventListener('click',hide);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')hide()});
+  }
+});
+
+log('Loading catalog…');
+</script>
+</body>
+</html>
