@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Order Confirmed — LT Finds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#000;--panel:#0b0b12;--text:#EAEAEA;--line:#1e1b2e;--purple:#a855f7;--purple2:#7c3aed}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+    .wrap{max-width:820px;margin:0 auto;padding:28px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    .badge{display:inline-block;padding:7px 12px;border-radius:999px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#0b0014}
+    a.btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:14px;font-weight:900;text-decoration:none;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#0b0014}
+    .muted{color:#a7a7c2}
+    .row{margin-top:12px;padding:12px;border-radius:14px;border:1px solid rgba(168,85,247,.25);background:rgba(124,58,237,.08)}
+    .k{font-weight:900}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="badge">Order Confirmed</div>
+      <h1 style="margin:12px 0 6px">Thank you — we’ve got it ✅</h1>
+      <p class="muted" style="margin:0 0 12px">Save your order number. You’ll need it for any support.</p>
+
+      <div class="row">
+        <div class="k">Order Number</div>
+        <div id="orderNo" style="font-size:22px;font-weight:900;margin-top:6px">LT-LOADING</div>
+      </div>
+
+      <div class="row">
+        <div class="k">Support</div>
+        <div style="margin-top:6px">
+          Email: <span id="supportEmail">support@example.com</span><br/>
+          Snapchat: <span id="supportSnap">your-snap</span>
+        </div>
+      </div>
+
+      <a class="btn" href="/">Back to catalogue</a>
+    </div>
+  </div>
+
+<script>
+  // Change these to match your index.html settings
+  var SUPPORT_EMAIL = 'support@example.com';
+  var SUPPORT_SNAP  = 'your-snap';
+
+  document.getElementById('supportEmail').textContent = SUPPORT_EMAIL;
+  document.getElementById('supportSnap').textContent  = SUPPORT_SNAP;
+
+  // Use Stripe session_id if present to generate a consistent order number
+  var params = new URLSearchParams(location.search);
+  var sid = params.get('session_id') || '';
+
+  function randomOrder(){
+    var r = Math.random().toString(36).slice(2,8).toUpperCase();
+    var t = Date.now().toString().slice(-5);
+    return 'LT-' + t + '-' + r;
+  }
+
+  async function setOrderNo(){
+    if(!sid){
+      document.getElementById('orderNo').textContent = randomOrder();
+      return;
+    }
+    try{
+      var res = await fetch('/api/get-session?session_id=' + encodeURIComponent(sid));
+      if(!res.ok) throw new Error('bad session');
+      var data = await res.json();
+      document.getElementById('orderNo').textContent = data.orderNumber || randomOrder();
+    }catch(e){
+      document.getElementById('orderNo').textContent = randomOrder();
+    }
+  }
+  setOrderNo();
+</script>
+</body>
+</html>
