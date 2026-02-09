@@ -604,59 +604,50 @@ function findProductByPid(id){
 }
 
 document.addEventListener('click', async function(e){
-  var a = e.target.closest('a.btn.buy');
-  if(!a) return;
-
+  var btn = e.target.closest('a.btn.buy');
+  if(!btn) return;
   e.preventDefault();
 
-  // prevent double click
-  if(a.getAttribute('aria-disabled') === 'true') return;
-
-  var id = a.getAttribute('data-order');
-  var p = findProductByPid(id);
-  if(!p){
-    alert('Item not found. Please refresh and try again.');
-    return;
-  }
-
-  // selected size
+  var id = btn.getAttribute('data-order');
   var sizes = loadSizes();
-  var chosen = sizes[id] || (sizeOptions(p.Section)[0] || '');
+  var chosen = sizes[id] || '';
 
-  // UI loading
-  var originalText = a.textContent;
-  a.setAttribute('aria-disabled','true');
-  a.textContent = 'Redirecting…';
+  // find product by pid
+  var product = null;
+  for (var i=0;i<PRODUCTS.length;i++){
+    if (pid(PRODUCTS[i]) === id) { product = PRODUCTS[i]; break; }
+  }
+  if (!product) return alert("Could not find product.");
 
-  try{
-    var resp = await fetch('/api/create-checkout-session', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+  // UX
+  btn.textContent = "Redirecting...";
+  btn.style.pointerEvents = "none";
+
+  try {
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: p.Title,
-        price: p.Price,
-        section: p.Section,
+        title: product.Title,
+        amount: product.Price,
         size: chosen
       })
     });
 
-    var data = await resp.json();
+    const data = await res.json();
 
-    if(data && data.url){
-      window.location.href = data.url;
-      return;
-    }
+    if (!res.ok) throw new Error(data.error || "Checkout failed");
 
-    console.error('Checkout failed:', data);
-    alert('Checkout failed. Please try again.');
-  } catch(err){
+    window.location.href = data.url;
+  } catch (err) {
     console.error(err);
-    alert('Checkout failed. Please try again.');
-  } finally{
-    a.removeAttribute('aria-disabled');
-    a.textContent = originalText;
+    alert("Checkout failed. Please try again.");
+  } finally {
+    btn.textContent = "Order now";
+    btn.style.pointerEvents = "";
   }
 });
+
 
 // ===================== SEARCH =====================
 function wireSearch(){
