@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LT Finds — Catalog</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg:#000;
@@ -21,9 +22,10 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui;overflow-x:hidden}
+
 header{
   background:#07070d;
-  padding:14px 20px;
+  padding:14px 18px;
   border-bottom:1px solid var(--line);
   display:flex;align-items:center;justify-content:space-between;gap:14px;
   position:sticky;top:0;z-index:10
@@ -34,7 +36,6 @@ header{
   background:linear-gradient(135deg,var(--purple),var(--purple-2));
   border-radius:12px;
   display:grid;place-items:center;
-  font-weight:900;color:#0b0014;
   box-shadow:0 12px 28px rgba(168,85,247,.28);
   overflow:hidden;
 }
@@ -47,17 +48,17 @@ header{
   background:#0E0E16;color:var(--text);
   border:1px solid var(--line);
   padding:8px 12px;border-radius:999px;
-  font-weight:900;cursor:pointer;transition:all .2s ease;
+  font-weight:900;cursor:pointer;transition:all .2s ease
 }
 .topbtn.active{
   background:linear-gradient(135deg,var(--purple),var(--purple-2));
-  color:#0b0014;border-color:rgba(168,85,247,.4);
+  color:#0b0014;border-color:rgba(168,85,247,.45)
 }
-.topbtn:hover{transform:translateY(-1px);box-shadow:0 0 10px rgba(168,85,247,.35)}
+.topbtn:hover{transform:translateY(-1px);box-shadow:0 0 12px rgba(168,85,247,.25)}
 
 .container{max-width:1150px;margin:auto;padding:16px}
 
-.hero{display:grid;place-items:center;padding:10px 14px 8px}
+.hero{display:grid;place-items:center;padding:18px 14px 10px}
 .big-search{width:min(820px,92vw);display:flex;gap:10px}
 .big-search input{
   flex:1;font-size:18px;padding:16px;
@@ -70,7 +71,7 @@ header{
   color:#0b0014;font-weight:900;border:none;cursor:pointer
 }
 
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
 .tab{
   background:#0E0E16;color:var(--text);
   border:1px solid var(--line);
@@ -81,27 +82,28 @@ header{
   background:linear-gradient(135deg,var(--purple),var(--purple-2));
   color:#0b0014
 }
-.tab:hover{transform:translateY(-1px);box-shadow:0 0 10px rgba(168,85,247,.3)}
+.tab:hover{transform:translateY(-1px);box-shadow:0 0 12px rgba(168,85,247,.18)}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+
 .card{
   position:relative;background:var(--panel);
   border:1px solid var(--line);
   border-radius:var(--radius);
   overflow:hidden;box-shadow:var(--shadow);
-  transition:all .2s ease
+  transition:all .18s ease
 }
 .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 26px rgba(168,85,247,.25), 0 6px 18px rgba(0,0,0,.35);
-  border-color:rgba(168,85,247,.35)
+  transform:translateY(-5px);
+  box-shadow:0 0 26px rgba(168,85,247,.28), 0 6px 18px rgba(0,0,0,.35);
+  border-color:rgba(168,85,247,.28)
 }
 .card img{
   width:100%;aspect-ratio:1/1;object-fit:cover;background:#0E0E16
 }
-.card .meta{padding:12px}
-.card .title{font-weight:900}
-.card .price{color:var(--muted);font-size:14px;margin-top:6px}
+.meta{padding:12px}
+.title{font-weight:900}
+.price{color:var(--muted);font-size:14px;margin-top:6px}
 
 .price-pill{
   background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(124,58,237,.22));
@@ -113,14 +115,37 @@ header{
   display:inline-block
 }
 
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+.badge{
+  font-size:11px;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid rgba(168,85,247,.25);
+  color:#d9c4ff;
+  background:rgba(168,85,247,.06);
+  font-weight:900;
+}
+.select{
+  width:100%;
+  margin-top:10px;
+  background:#0E0E16;
+  border:1px solid var(--line);
+  color:#fff;
+  padding:10px 10px;
+  border-radius:12px;
+  font-weight:800;
+}
+
 .btn.buy{
-  display:inline-block;padding:10px 14px;border-radius:12px;
+  display:inline-block;
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:12px;
   background:linear-gradient(135deg,var(--purple),var(--purple-2));
   color:#0b0014;text-decoration:none;font-weight:900;
   border:1px solid rgba(168,85,247,.35);
   width:100%;
   text-align:center;
-  cursor:pointer;
 }
 
 .fav-btn{
@@ -148,29 +173,67 @@ header{
   border:1px solid var(--line);
   border-radius:12px;overflow:hidden;
   box-shadow:var(--shadow);
-  transition:transform .2s ease, box-shadow .2s ease
+  transition:transform .18s ease, box-shadow .18s ease
 }
-.fthumb:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 14px 32px rgba(168,85,247,.22)}
+.fthumb:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 14px 32px rgba(168,85,247,.22)}
 .fthumb img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#0E0E16}
 
 .hidden{display:none!important}
-#status{margin:10px 0;color:#9AA4B2;font-size:13px}
+#status{margin:8px 0;color:#9AA4B2;font-size:13px}
 
-.notice{
-  background:rgba(168,85,247,.10);
-  border:1px solid rgba(168,85,247,.22);
-  border-radius:16px;
-  padding:14px;
-  box-shadow:var(--shadow);
+.sectionTitle{
+  margin:16px 0 10px;
+  font-size:22px;
+  font-weight:900;
 }
-.notice h2{margin:0 0 8px;font-size:22px}
-.notice p{margin:0 0 8px;color:#d7d7f0;line-height:1.55}
-.notice .pill{
-  display:inline-block;margin-top:6px;
-  padding:6px 10px;border-radius:999px;
-  border:1px solid rgba(168,85,247,.28);
-  background:rgba(124,58,237,.12);
-  font-weight:900;color:#efe4ff;
+.smallNote{color:#9AA4B2;font-size:13px;margin-top:6px}
+
+.instructions{
+  max-width:850px;
+  margin:12px auto 0;
+  background:linear-gradient(180deg, rgba(168,85,247,.08), rgba(0,0,0,0));
+  border:1px solid rgba(168,85,247,.18);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.4);
+}
+.instructions h2{
+  margin:0 0 10px;
+  font-size:28px;
+  font-weight:900;
+  text-shadow:0 0 18px rgba(168,85,247,.25);
+}
+.instructions .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}
+.instructions .pill{
+  border:1px solid rgba(168,85,247,.25);
+  background:rgba(168,85,247,.08);
+  color:#e9dcff;
+  border-radius:999px;
+  padding:7px 12px;
+  font-weight:900;
+  font-size:12px;
+}
+.instructions ul{margin:10px 0 0;padding-left:18px;color:#e8e8ff;line-height:1.8}
+.instructions strong{color:#fff}
+.instructions .highlight{
+  margin-top:14px;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(168,85,247,.22);
+  background:rgba(12,12,18,.7);
+}
+.instructions .cta{
+  margin-top:12px;
+  font-weight:900;
+  color:#d9c4ff;
+}
+.instructions code{
+  background:#0E0E16;
+  border:1px solid rgba(168,85,247,.18);
+  padding:2px 7px;
+  border-radius:8px;
+  color:#fff;
+  font-weight:900;
 }
 
 #splash{
@@ -180,7 +243,7 @@ header{
   animation:splashHide 3.2s ease forwards
 }
 #splash.hide{opacity:0;pointer-events:none;visibility:hidden}
-#splash .scontent{display:grid;gap:18px;justify-items:center;animation:popIn .6s ease}
+#splash .scontent{display:grid;gap:16px;justify-items:center;animation:popIn .6s ease}
 #splash .slogo{
   width:min(140px,35vw);height:min(140px,35vw);
   border-radius:22px;object-fit:cover;
@@ -190,11 +253,11 @@ header{
   font-weight:900;letter-spacing:.5px;
   font-size:clamp(28px,5vw,56px);
   display:flex;gap:.35em;align-items:baseline;
-  text-shadow:0 0 20px rgba(168,85,247,.5)
+  text-shadow:0 0 20px rgba(168,85,247,.35)
 }
 #splash .sname .mz{color:var(--purple);text-shadow:0 0 15px rgba(168,85,247,.8)}
 #splash .sname .finds{color:#B9C0C7;text-shadow:0 0 12px rgba(255,255,255,.25)}
-@keyframes splashHide{0%{opacity:1}92%{opacity:.05}100%{opacity:0;pointer-events:none;visibility:hidden}}
+@keyframes splashHide{0%{opacity:1}92%{opacity:.02}100%{opacity:0;pointer-events:none;visibility:hidden}}
 </style>
 </head>
 
@@ -203,6 +266,7 @@ header{
   <div class="scontent">
     <img class="slogo" src="logo.png" alt="LT Logo">
     <div class="sname"><span class="mz">LT</span><span class="finds">finds</span></div>
+    <div class="smallNote">Tap to skip</div>
   </div>
 </div>
 
@@ -216,164 +280,120 @@ header{
   </div>
 
   <div class="topnav">
-    <button id="navCatalogue" class="topbtn active" type="button">Catalogue</button>
+    <button id="navCatalog" class="topbtn active" type="button">Catalogue</button>
     <button id="navInstructions" class="topbtn" type="button">Instructions</button>
   </div>
 </header>
 
 <main class="container">
-
-  <!-- Instructions page -->
-  <section id="instructionsPage" class="hidden">
-    <div class="notice">
-      <h2>Instructions</h2>
-      <p>When ordering, you will be given an <strong>order number</strong>.</p>
-      <p>If you require any additional support, please message us with your <strong>order number</strong> and we will get back to you.</p>
-      <p><span class="pill">Support Email:</span> <strong id="supportEmail">support@example.com</strong></p>
-      <p><span class="pill">Snapchat:</span> <strong id="supportSnap">your-snap</strong></p>
-      <p style="color:#a7a7c2;margin-top:10px">Tip: Keep your order number safe — it’s the fastest way for us to find your order.</p>
-    </div>
-  </section>
-
-  <!-- Catalogue page -->
-  <section id="cataloguePage">
+  <!-- CATALOG VIEW -->
+  <section id="catalogView">
     <section class="hero">
       <form id="searchForm" class="big-search">
         <input id="bigSearch" type="text" placeholder="Search all items…" autocomplete="off">
         <button class="btn" type="submit">Search</button>
       </form>
+      <div class="smallNote" id="hint">Tip: search by brand / item (e.g. “Nike”, “puffer”, “dunk”, “hoodie”).</div>
     </section>
 
     <nav id="tabs" class="tabs"></nav>
 
-    <h2>Featured</h2>
+    <div class="sectionTitle">Featured</div>
     <section id="featured" class="featured-strip"></section>
 
     <div id="status">Loading catalog…</div>
 
-    <h2>All Products</h2>
+    <div class="sectionTitle">All Products</div>
     <section id="grid" class="grid"></section>
   </section>
 
+  <!-- INSTRUCTIONS VIEW -->
+  <section id="instructionsView" class="hidden">
+    <div class="instructions">
+      <h2>How ordering works</h2>
+      <div class="pillrow">
+        <div class="pill">1) Pick your item</div>
+        <div class="pill">2) Choose size</div>
+        <div class="pill">3) Place order</div>
+        <div class="pill">4) Receive order number</div>
+      </div>
+
+      <p class="smallNote">
+        When you order, you’ll be given an <strong>order number</strong>. Keep it safe — it’s how we track your order.
+      </p>
+
+      <div class="highlight">
+        <div class="cta">Need help with an order?</div>
+        <ul>
+          <li>Message our Snapchat: <strong>(ltsells)</strong></li>
+          <li>Include your <strong>order number</strong> in the message</li>
+          <li>We’ll reply with updates + next steps</li>
+        </ul>
+      </div>
+
+      <div class="highlight">
+        <div class="cta">Quick rules</div>
+        <ul>
+          <li>Always double-check the <strong>size</strong> before ordering.</li>
+          <li>If you don’t include the order number, we <strong>can’t</strong> track it.</li>
+          <li>Featured + categories help you find items faster.</li>
+        </ul>
+      </div>
+
+      <p class="smallNote" style="margin-top:14px">
+        <strong>Note:</strong> Payments are not enabled yet — we’re finalising checkout next.
+      </p>
+    </div>
+  </section>
 </main>
 
 <script>
-// ================== SETTINGS (edit these) ==================
-var SUPPORT_EMAIL = 'support@example.com';     // <-- change to your email
-var SUPPORT_SNAP  = 'your-snap';              // <-- change to your snapchat
-// ===========================================================
+// ===================== CONFIG =====================
+var SECTIONS = ['All','T-shirts','Hoodies','Tracksuits','Trousers','Shoes','Coats','Accessories','Clothes','Favourites'];
+var PRODUCTS = [], FEATURED = [];
+var FILTER = { q:'', section:'All' };
+var LOADED = false;
 
-// UI: set support text
-document.getElementById('supportEmail').textContent = SUPPORT_EMAIL;
-document.getElementById('supportSnap').textContent  = SUPPORT_SNAP;
+// Your CSV source (unchanged)
+const CSV_URL_PRIMARY = 'https://cdn.jsdelivr.net/gh/streamermurray-boop/mz-finds-data@main/mzfinds_READY_normalized.csv';
+const CSV_URL_FALLBACK = 'https://api.allorigins.win/raw?url='+encodeURIComponent('https://raw.githubusercontent.com/streamermurray-boop/mz-finds-data/main/mzfinds_READY_normalized.csv');
 
-// Nav switching
-var navCatalogue = document.getElementById('navCatalogue');
-var navInstructions = document.getElementById('navInstructions');
-var cataloguePage = document.getElementById('cataloguePage');
-var instructionsPage = document.getElementById('instructionsPage');
-
-function setPage(which){
-  if(which === 'instructions'){
-    navCatalogue.classList.remove('active');
-    navInstructions.classList.add('active');
-    cataloguePage.classList.add('hidden');
-    instructionsPage.classList.remove('hidden');
-  } else {
-    navInstructions.classList.remove('active');
-    navCatalogue.classList.add('active');
-    instructionsPage.classList.add('hidden');
-    cataloguePage.classList.remove('hidden');
-  }
-  window.scrollTo(0,0);
-}
-navCatalogue.addEventListener('click', function(){ setPage('catalogue'); });
-navInstructions.addEventListener('click', function(){ setPage('instructions'); });
-
-// ===== Config & state =====
-var SECTIONS=['All','Hoodies','T-shirts','Shoes','Pants','Coats','Accessories','Clothes','Favourites'];
-var PRODUCTS=[], FEATURED=[], FILTER={q:'',sort:'relevance',section:'All'};
-const CSV_URL_PRIMARY='https://cdn.jsdelivr.net/gh/streamermurray-boop/mz-finds-data@main/mzfinds_READY_normalized.csv';
-const CSV_URL_FALLBACK='https://api.allorigins.win/raw?url='+encodeURIComponent('https://raw.githubusercontent.com/streamermurray-boop/mz-finds-data/main/mzfinds_READY_normalized.csv');
-
-// ===== Small helpers =====
+// ===================== HELPERS =====================
 function $(s){return document.querySelector(s)}
-function log(m){var el=$('#status'); if(el) el.textContent=m}
 function esc(s){s=String(s||'');return s.replace(/[&<>]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])})}
 function toLower(s){return String(s||'').toLowerCase()}
-function removeNonNumber(s){return String(s||'').replace(/[^0-9.]/g,'')}
-function containsAny(t,arr){t=toLower(t);for(var i=0;i<arr.length;i++){if(t.indexOf(arr[i])>-1)return true}return false}
+function log(m){var el=$('#status'); if(el) el.textContent=m}
 
-// ===== Section guessing =====
-function guessSection(title){
-  var t=String(title||'');
-  var tl=toLower(t);
-  if(containsAny(t,['hoodie','sweat','tracksuit'])) return 'Hoodies';
-  if(containsAny(t,['t-shirt','tee','tshirt'])) return 'T-shirts';
-  if(containsAny(t,['shoe','sneaker','trainer','jordan','dunk','yeezy','boot'])) return 'Shoes';
-  if(containsAny(t,['pant','jean','cargo','short','jogger','jogging'])) return 'Pants';
-  if(containsAny(t,['coat','jacket','puffer','vest'])) return 'Coats';
-  if(containsAny(t,['belt','bag','hat','cap','mask','wallet','beanie','scarf','glove','glasses'])) return 'Accessories';
-  return 'Clothes';
-}
+// CSV parse
+function splitLines(t){return t.split(/\r?\n/)}
+function splitCSVLineWith(line,delim){var out=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch=='"'){if(inQ&&line[i+1]=='"'){cur+='"';i++;}else{inQ=!inQ}}else if(ch===delim&&!inQ){out.push(cur);cur=''}else{cur+=ch}}out.push(cur);return out}
+function detectDelimiter(s){var c=(s.match(/,/g)||[]).length;var sc=(s.match(/;/g)||[]).length;var t=(s.match(/\t/g)||[]).length;return sc>c&&sc>t?';':t>c&&t>sc?'\t':','}
+function parseCSV(t){var lines=splitLines(t).filter(function(l){return l.trim()});if(!lines.length)return[];var d=detectDelimiter(lines[0]);var headers=splitCSVLineWith(lines.shift(),d).map(function(x){return x.trim()});var rows=[];for(var i=0;i<lines.length;i++){var cols=splitCSVLineWith(lines[i],d),o={};for(var j=0;j<headers.length;j++){o[headers[j]]=cols[j]?cols[j].trim():''}rows.push(o)}return rows}
 
-// ===== Pricing rules (your new rules) =====
-function stablePick(title, choices){
-  var s=String(title||'');
-  var sum=0;
-  for(var i=0;i<s.length;i++) sum += s.charCodeAt(i);
-  return choices[sum % choices.length];
-}
-function enforceCategoryPrice(section, title){
-  var t=toLower(title||'');
-
-  // shoes
-  if(section === 'Shoes') return 70.00;
-
-  // tracksuit items: hoodies + joggers (we treat Hoodies and Pants as tracksuit categories)
-  if(section === 'Hoodies' || section === 'Pants') return 35.00;
-
-  // accessories: 35–50
-  if(section === 'Accessories') return stablePick(title, [35.00, 40.00, 45.00, 50.00]);
-
-  // t-shirts (not specified, but must be >= 30)
-  if(section === 'T-shirts') return stablePick(title, [30.00, 35.00]);
-
-  // coats (keep premium, still >=30)
-  if(section === 'Coats') return stablePick(title, [85.00, 90.00]);
-
-  // everything else: must be >=30
-  return stablePick(title, [30.00, 35.00, 39.99, 45.00]);
-}
-
-// ===== URL, image, CSV handling =====
-function normalizeLink(u){if(!u) return ''; u=String(u).trim();
-  if(u.slice(0,10).toUpperCase()==='=HYPERLINK'){var inner=u.slice(u.indexOf('(')+1,u.lastIndexOf(')'));var first=inner.split(',')[0];u=first.replace(/^\s*["']|["']\s*$/g,'');}
-  if(/^www\./i.test(u)) u='https://'+u;
-  try{var url=new URL(u, location.href);
-    if((url.hostname==='www.google.com'||url.hostname==='google.com')&&url.pathname==='/url'){
-      var q=url.searchParams.get('q')||url.searchParams.get('url'); if(q) url=new URL(q, location.href);
-    }
-    if(url.protocol==='http:') url.protocol='https:'; return url.toString();
-  }catch(e){return u}
-}
+// Image normalize
 var PLACEHOLDER_IMG='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><rect width="600" height="600" fill="%230b0b12"/><rect x="70" y="70" width="460" height="460" rx="22" fill="%230E0E16" stroke="%231e1b2e"/><path d="M140 420l120-140 95 110 55-70 50 60" fill="none" stroke="%23a855f7" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><circle cx="230" cy="230" r="36" fill="%230E0E16" stroke="%231e1b2e"/></svg>';
-function normalizeImg(u){ if(!u) return ''; u=String(u).trim();
+function normalizeImg(u){
+  if(!u) return '';
+  u=String(u).trim();
   if(u.slice(0,7).toUpperCase()==='=IMAGE(' && u.slice(-1)===')'){u=u.slice(7,-1).replace(/^\s*["']|["']\s*$/g,'');}
-  try{var url=new URL(u, location.href);
+  try{
+    var url=new URL(u, location.href);
     if((url.hostname==='www.google.com'||url.hostname==='google.com')&&url.pathname==='/url'){
       var q=url.searchParams.get('q')||url.searchParams.get('url'); if(q) url=new URL(q, location.href);
     }
-    if(url.protocol==='http:') url.protocol='https:'; return url.toString();
-  }catch(e){return u}
+    if(url.protocol==='http:') url.protocol='https:';
+    return url.toString();
+  }catch(e){ return u; }
 }
-function toProxy(u){ try{
-  var s=String(u);
-  if(s.startsWith('https://')) s=s.slice(8);
-  else if(s.startsWith('http://')) s=s.slice(7);
-  else if(s.startsWith('//')) s=s.slice(2);
-  return 'https://images.weserv.nl/?url='+encodeURIComponent(s);
-}catch(e){ return u; } }
+function toProxy(u){
+  try{
+    var s=String(u);
+    if(s.startsWith('https://')) s=s.slice(8);
+    else if(s.startsWith('http://')) s=s.slice(7);
+    else if(s.startsWith('//')) s=s.slice(2);
+    return 'https://images.weserv.nl/?url='+encodeURIComponent(s);
+  }catch(e){ return u; }
+}
 function hydrateImages(scope){
   var imgs=scope.querySelectorAll('img[data-src]');
   for(var i=0;i<imgs.length;i++){
@@ -388,83 +408,189 @@ function hydrateImages(scope){
     })(imgs[i]);
   }
 }
-function splitLines(t){return t.split(/\r?\n/)}
-function splitCSVLineWith(line,delim){var out=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch=='"'){if(inQ&&line[i+1]=='"'){cur+='"';i++;}else{inQ=!inQ}}else if(ch===delim&&!inQ){out.push(cur);cur=''}else{cur+=ch}}out.push(cur);return out}
-function detectDelimiter(s){var c=(s.match(/,/g)||[]).length;var sc=(s.match(/;/g)||[]).length;var t=(s.match(/\t/g)||[]).length;return sc>c&&sc>t?';':t>c&&t>sc?'\t':','}
-function parseCSV(t){var lines=splitLines(t).filter(function(l){return l.trim()});if(!lines.length)return[];var d=detectDelimiter(lines[0]);var headers=splitCSVLineWith(lines.shift(),d).map(function(x){return x.trim()});var rows=[];for(var i=0;i<lines.length;i++){var cols=splitCSVLineWith(lines[i],d),o={};for(var j=0;j<headers.length;j++){o[headers[j]]=cols[j]?cols[j].trim():''}rows.push(o)}return rows}
 
-// ===== Rendering =====
-function pid(p){return encodeURIComponent((p.Title||'')+'|'+(p.Image||''))}
+// ===================== CATEGORY + PRICING (YOUR RULES) =====================
+// Stronger classifier: tries hard to put items into correct categories
+function classify(title){
+  var t = toLower(title);
+
+  // Shoes
+  if(/\b(shoe|shoes|sneaker|sneakers|trainer|trainers|dunk|jordan|yeezy|air\s?force|af1|airmax|air\s?max|boot|boots|loafer|slides|sliders)\b/.test(t)) return 'Shoes';
+
+  // Coats / Jackets
+  if(/\b(coat|jacket|puffer|parka|gilet|vest|windbreaker|anorak|bomber)\b/.test(t)) return 'Coats';
+
+  // Tracksuits / Sets
+  if(/\b(tracksuit|track\s?suit|set\b|2\s?piece|two\s?piece|tech\s?fleece|full\s?zip\s?set)\b/.test(t)) return 'Tracksuits';
+
+  // Hoodies
+  if(/\b(hoodie|hooded|pullover|sweatshirt|crewneck)\b/.test(t)) return 'Hoodies';
+
+  // T-shirts
+  if(/\b(t-?shirt|tee\b|tshirt)\b/.test(t)) return 'T-shirts';
+
+  // Trousers / Pants
+  if(/\b(trouser|trousers|pants|jeans|denim|cargo|jogger|joggers|shorts)\b/.test(t)) return 'Trousers';
+
+  // Accessories
+  if(/\b(belt|bag|wallet|cardholder|hat|cap|beanie|scarf|glove|sunglass|keyring|keychain|mask|watch|bracelet|necklace)\b/.test(t)) return 'Accessories';
+
+  return 'Clothes';
+}
+
+// Stable accessory price between 30-50 (per-item consistent)
+function stableAccessoryPrice(title){
+  var choices=[30,35,40,45,50];
+  var s=String(title||'');
+  var sum=0; for(var i=0;i<s.length;i++) sum += s.charCodeAt(i);
+  return choices[sum % choices.length];
+}
+
+// Apply your pricing rules exactly
+function priceFor(section, title){
+  if(section==='Shoes') return 80.00;
+  if(section==='Coats') return 100.00;
+  if(section==='T-shirts') return 25.00;
+  if(section==='Hoodies') return 45.00;
+  if(section==='Trousers') return 50.00;
+  if(section==='Tracksuits') return 65.00;
+  if(section==='Accessories') return stableAccessoryPrice(title);
+
+  // Other clothes: must be >= 30 (as you said)
+  return 35.00;
+}
+
+// ===================== SIZE PICKERS =====================
+function isShoeSection(sec){ return sec === 'Shoes'; }
+function sizeOptions(sec){
+  if(isShoeSection(sec)) return ['7','8','9','10'];
+  return ['S','M','L'];
+}
+function sizeLabel(sec){
+  return isShoeSection(sec) ? 'Shoe size' : 'Size';
+}
+
+// Save selected sizes so they persist
+var SIZEKEY='lt_sizes_v1';
+function loadSizes(){ try{return JSON.parse(localStorage.getItem(SIZEKEY)||'{}')}catch(e){return{}} }
+function saveSizes(o){ try{localStorage.setItem(SIZEKEY,JSON.stringify(o))}catch(e){} }
+function setSize(pid,val){ var o=loadSizes(); o[pid]=val; saveSizes(o); }
+function getSize(pid){ var o=loadSizes(); return o[pid]||''; }
+
+// ===================== RENDERING =====================
+function pid(p){ return encodeURIComponent((p.Title||'')+'|'+(p.Image||'')); }
+
 function card(p){
-  return '<div class="card">\
-    <button class="fav-btn" data-id="'+pid(p)+'" aria-label="Add to favourites">&#9829;</button>\
-    <img data-src="'+esc(p.Image)+'" alt="'+esc(p.Title)+'">\
-    <div class="meta">\
-      <div class="title">'+esc(p.Title)+'</div>\
-      <div class="price"><span class="price-pill">£'+(p.Price||0).toFixed(2)+'</span></div>\
-    </div>\
-    <div class="meta">\
-      <button class="btn buy" type="button" data-buy="'+esc(pid(p))+'">Order now</button>\
-    </div>\
-  </div>';
+  var id = pid(p);
+  var opts = sizeOptions(p.Section);
+  var current = getSize(id) || opts[0];
+  var badge = p.Section;
+
+  var selectHtml = '<select class="select" data-size-for="'+id+'" aria-label="'+esc(sizeLabel(p.Section))+'">'
+    + opts.map(function(o){ return '<option value="'+esc(o)+'"'+(String(o)===String(current)?' selected':'')+'>'+esc(o)+'</option>'; }).join('')
+    + '</select>';
+
+  return ''+
+  '<div class="card">'+
+    '<button class="fav-btn" data-id="'+id+'" aria-label="Add to favourites">&#9829;</button>'+
+    '<img data-src="'+esc(p.Image)+'" alt="'+esc(p.Title)+'">'+
+    '<div class="meta">'+
+      '<div class="title">'+esc(p.Title)+'</div>'+
+      '<div class="row">'+
+        '<span class="badge">'+esc(badge)+'</span>'+
+        '<span class="price-pill">£'+(p.Price||0).toFixed(2)+'</span>'+
+      '</div>'+
+      selectHtml+
+      '<a class="btn buy" href="#" data-order="'+id+'">Order now</a>'+
+    '</div>'+
+  '</div>';
 }
 
 function renderTabs(){
-  var wrap=$('#tabs');if(!wrap)return;wrap.innerHTML='';
+  var wrap=$('#tabs'); if(!wrap) return;
+  wrap.innerHTML='';
   for(var i=0;i<SECTIONS.length;i++){
     (function(sec){
       var b=document.createElement('button');
       b.textContent=sec;
       b.className='tab'+(FILTER.section===sec?' active':'');
-      b.onclick=function(){FILTER.section=sec;renderTabs();renderGrid()};
-      wrap.appendChild(b)
-    })(SECTIONS[i])
+      b.onclick=function(){
+        FILTER.section=sec;
+        renderTabs();
+        renderGrid();
+      };
+      wrap.appendChild(b);
+    })(SECTIONS[i]);
   }
 }
 
 function filtered(){
-  var q=toLower(FILTER.q);var out=[];var favs=null;
+  var q=toLower(FILTER.q);
+  var out=[];
   var isFavs = FILTER.section==='Favourites';
+  var favs = null;
   if(isFavs){ try{ favs=new Set(loadFavs()); }catch(e){ favs=new Set(); } }
+
   for(var i=0;i<PRODUCTS.length;i++){
     var p=PRODUCTS[i];
-    if(isFavs){ if(!favs.has(pid(p))) continue; }
-    else if(FILTER.section!=='All'&&p.Section!==FILTER.section) continue;
-    if(q&&toLower(p.Title).indexOf(q)===-1) continue;
+
+    if(isFavs){
+      if(!favs.has(pid(p))) continue;
+    } else if(FILTER.section!=='All' && p.Section!==FILTER.section) continue;
+
+    if(q && toLower(p.Title).indexOf(q)===-1) continue;
     out.push(p);
   }
   return out;
 }
 
-function updateFeatured(){
-  var box=$('#featured');if(!box)return;
-  var show=!FILTER.q && FILTER.section==='All';
-  box.classList.toggle('hidden',!show)
+function updateFeaturedVisibility(){
+  var box=$('#featured'); if(!box) return;
+  var show = LOADED && !FILTER.q && FILTER.section==='All';
+  box.classList.toggle('hidden', !show);
 }
 
 function renderGrid(){
-  var g=$('#grid');if(!g)return;
-  var items=filtered();var html='';
-  for(var i=0;i<items.length;i++){html+=card(items[i])}
+  var g=$('#grid'); if(!g) return;
+  if(!LOADED){ g.innerHTML=''; updateFeaturedVisibility(); return; }
+
+  var items=filtered();
+  var html='';
+  for(var i=0;i<items.length;i++) html += card(items[i]);
+
   g.innerHTML=html;
   hydrateImages(g);
   applyFavStates(g);
-  updateFeatured();
-  log('Showing '+items.length+' items.')
+  wireSizePickers(g);
+  updateFeaturedVisibility();
+  log('Showing '+items.length+' items.');
 }
 
 function renderFeatured(){
-  var f=$('#featured');if(!f)return;
-  var shown=FEATURED.slice(0,10);var html='';
+  var f=$('#featured'); if(!f) return;
+  if(!LOADED){ f.innerHTML=''; return; }
+
+  var shown = FEATURED.slice(0,10);
+  var html='';
   for(var i=0;i<shown.length;i++){
     var p=shown[i];
-    html+="<div class='fthumb'><img data-src='"+esc(p.Image)+"' alt='"+esc(p.Title)+"'></div>"
+    html += "<div class='fthumb'><img data-src='"+esc(p.Image)+"' alt='"+esc(p.Title)+"'></div>";
   }
   f.innerHTML=html;
-  hydrateImages(f)
+  hydrateImages(f);
+  updateFeaturedVisibility();
 }
 
-// ===== Favourites =====
+function wireSizePickers(scope){
+  var nodes = scope.querySelectorAll('select[data-size-for]');
+  for(var i=0;i<nodes.length;i++){
+    nodes[i].addEventListener('change', function(e){
+      setSize(this.getAttribute('data-size-for'), this.value);
+    });
+  }
+}
+
+// ===================== FAVOURITES =====================
 var FKEY='lt_favs_v2';
 function loadFavs(){try{return JSON.parse(localStorage.getItem(FKEY)||'[]')}catch(e){return[]}}
 function saveFavs(a){try{localStorage.setItem(FKEY,JSON.stringify(a))}catch(e){}}
@@ -474,7 +600,7 @@ function applyFavStates(scope){
   var nodes=scope.querySelectorAll('.fav-btn');
   for(var i=0;i<nodes.length;i++){
     var b=nodes[i];
-    b.classList.toggle('active',favs.has(b.dataset.id))
+    b.classList.toggle('active',favs.has(b.dataset.id));
   }
 }
 document.addEventListener('click',function(e){
@@ -485,52 +611,44 @@ document.addEventListener('click',function(e){
   if(FILTER.section==='Favourites') renderGrid();
 });
 
-// ===== Stripe Checkout =====
-function findProductByPid(id){
-  for(var i=0;i<PRODUCTS.length;i++){
-    if(pid(PRODUCTS[i]) === id) return PRODUCTS[i];
-  }
-  return null;
-}
-
-async function startCheckout(product){
-  try{
-    // Basic guard
-    if(!product || !product.Title) throw new Error('Invalid product');
-
-    // Call your Vercel API route that creates a Stripe Checkout Session
-    var res = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        title: product.Title,
-        price: product.Price,     // in GBP
-        image: product.Image
-      })
-    });
-
-    if(!res.ok){
-      var txt = await res.text();
-      throw new Error('Checkout error: ' + txt);
-    }
-
-    var data = await res.json();
-    if(!data || !data.url) throw new Error('No checkout URL returned');
-    window.location.href = data.url; // go straight to payment
-  }catch(err){
-    alert('Payment setup not finished yet. Error: ' + (err && err.message ? err.message : err));
-  }
-}
-
+// ===================== ORDER BUTTON (NO PAYMENT YET) =====================
+// For now: show a clean “coming soon” alert with size + item.
+// Later we swap this to Stripe Checkout.
 document.addEventListener('click', function(e){
-  var btn = e.target.closest('button.btn.buy');
-  if(!btn) return;
-  var id = btn.getAttribute('data-buy');
-  var p = findProductByPid(id);
-  startCheckout(p);
+  var a = e.target.closest('a.btn.buy');
+  if(!a) return;
+  e.preventDefault();
+
+  var id = a.getAttribute('data-order');
+  var sizes = loadSizes();
+  var chosen = sizes[id] || '(not set)';
+  alert("Checkout not enabled yet.\n\nSelected size: " + chosen + "\n\nNext step: we’ll connect Stripe checkout.");
 });
 
-// ===== CSV boot =====
+// ===================== SEARCH (FIXED) =====================
+function wireSearch(){
+  var form=$('#searchForm'), big=$('#bigSearch');
+  if(!form || !big) return;
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    FILTER.q = big.value || '';
+    renderGrid();
+  });
+
+  // Instant search (only after loaded)
+  var t=null;
+  big.addEventListener('input', function(){
+    clearTimeout(t);
+    var v=this.value;
+    t=setTimeout(function(){
+      FILTER.q = v || '';
+      renderGrid();
+    }, 80);
+  });
+}
+
+// ===================== LOAD / NORMALIZE PRODUCTS =====================
 function normalize(rows){
   PRODUCTS=[];
   for(var i=0;i<rows.length;i++){
@@ -538,15 +656,16 @@ function normalize(rows){
     var title=o.Title||o.Name||o.title||o.name||'';
     if(!title) continue;
 
-    var img=normalizeImg(o.ImageURL||o.Image||o.image||o.imageurl||'');
-    var sec=o.Category||o.category||guessSection(title);
+    var img = normalizeImg(o.ImageURL||o.Image||o.image||o.imageurl||'');
+    var sec = classify(title);
+    var price = priceFor(sec, title);
 
-    // Ignore CSV price. Apply your rules
-    var price=enforceCategoryPrice(sec, title);
-
-    PRODUCTS.push({Title:title,Image:img,Price:price,Section:sec});
+    PRODUCTS.push({Title:title, Image:img, Price:price, Section:sec});
   }
-  FEATURED=PRODUCTS.slice(0,10);
+
+  FEATURED = PRODUCTS.slice(0,10);
+  LOADED = true;
+
   renderTabs();
   renderFeatured();
   renderGrid();
@@ -556,19 +675,69 @@ function bootFromFixedCSV(){
   log('Loading catalog…');
   fetch(CSV_URL_PRIMARY,{mode:'cors',cache:'no-store'})
     .then(function(r){ if(!r.ok) throw new Error('Primary fetch failed: '+r.status); return r.text(); })
-    .catch(function(){ return fetch(CSV_URL_FALLBACK,{cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('Fallback fetch failed: '+r.status); return r.text(); }); })
-    .then(function(text){ var rows=parseCSV(text); normalize(rows); })
-    .catch(function(err){ console.error(err); log('Failed to load the catalog file.'); });
+    .catch(function(){
+      return fetch(CSV_URL_FALLBACK,{cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw new Error('Fallback fetch failed: '+r.status); return r.text(); });
+    })
+    .then(function(text){
+      var rows=parseCSV(text);
+      log('Parsed '+rows.length+' rows');
+      normalize(rows);
+    })
+    .catch(function(err){
+      console.error(err);
+      log('Failed to load the catalog file.');
+    });
 }
-window.addEventListener('load', bootFromFixedCSV);
 
-// Splash dismiss
+// ===================== NAV (CATALOG / INSTRUCTIONS) =====================
+function setView(view){
+  var cat = $('#catalogView');
+  var ins = $('#instructionsView');
+  var b1 = $('#navCatalog');
+  var b2 = $('#navInstructions');
+
+  if(view==='instructions'){
+    cat.classList.add('hidden');
+    ins.classList.remove('hidden');
+    b1.classList.remove('active');
+    b2.classList.add('active');
+    window.scrollTo(0,0);
+  } else {
+    ins.classList.add('hidden');
+    cat.classList.remove('hidden');
+    b2.classList.remove('active');
+    b1.classList.add('active');
+    window.scrollTo(0,0);
+  }
+}
+
+function wireNav(){
+  $('#navCatalog').addEventListener('click', function(){ setView('catalog'); });
+  $('#navInstructions').addEventListener('click', function(){ setView('instructions'); });
+}
+
+// ===================== SPLASH =====================
 window.addEventListener('load',function(){
   var s=document.getElementById('splash');
-  function hide(){ if(!s)return; s.classList.add('hide'); s.style.opacity='0'; s.style.pointerEvents='none'; s.style.visibility='hidden' }
-  if(s){ s.addEventListener('click',hide); document.addEventListener('keydown',function(e){if(e.key==='Escape')hide()}); }
+  function hide(){
+    if(!s) return;
+    s.classList.add('hide');
+    s.style.opacity='0';
+    s.style.pointerEvents='none';
+    s.style.visibility='hidden';
+  }
+  if(s){
+    s.addEventListener('click',hide);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(); });
+  }
 });
 
+// ===================== INIT =====================
+wireSearch();
+wireNav();
+window.addEventListener('load', bootFromFixedCSV);
 </script>
 </body>
 </html>
+
