@@ -146,6 +146,12 @@ header{
   border:1px solid rgba(168,85,247,.35);
   width:100%;
   text-align:center;
+  cursor:pointer;
+}
+
+.btn.buy[aria-disabled="true"]{
+  opacity:.65;
+  pointer-events:none;
 }
 
 .fav-btn{
@@ -339,10 +345,6 @@ header{
           <li>Featured + categories help you find items faster.</li>
         </ul>
       </div>
-
-      <p class="smallNote" style="margin-top:14px">
-        <strong>Note:</strong> Payments are not enabled yet — we’re finalising checkout next.
-      </p>
     </div>
   </section>
 </main>
@@ -410,35 +412,20 @@ function hydrateImages(scope){
 }
 
 // ===================== CATEGORY + PRICING (YOUR RULES) =====================
-// Stronger classifier: tries hard to put items into correct categories
 function classify(title){
   var t = toLower(title);
 
-  // Shoes
   if(/\b(shoe|shoes|sneaker|sneakers|trainer|trainers|dunk|jordan|yeezy|air\s?force|af1|airmax|air\s?max|boot|boots|loafer|slides|sliders)\b/.test(t)) return 'Shoes';
-
-  // Coats / Jackets
   if(/\b(coat|jacket|puffer|parka|gilet|vest|windbreaker|anorak|bomber)\b/.test(t)) return 'Coats';
-
-  // Tracksuits / Sets
   if(/\b(tracksuit|track\s?suit|set\b|2\s?piece|two\s?piece|tech\s?fleece|full\s?zip\s?set)\b/.test(t)) return 'Tracksuits';
-
-  // Hoodies
   if(/\b(hoodie|hooded|pullover|sweatshirt|crewneck)\b/.test(t)) return 'Hoodies';
-
-  // T-shirts
   if(/\b(t-?shirt|tee\b|tshirt)\b/.test(t)) return 'T-shirts';
-
-  // Trousers / Pants
   if(/\b(trouser|trousers|pants|jeans|denim|cargo|jogger|joggers|shorts)\b/.test(t)) return 'Trousers';
-
-  // Accessories
   if(/\b(belt|bag|wallet|cardholder|hat|cap|beanie|scarf|glove|sunglass|keyring|keychain|mask|watch|bracelet|necklace)\b/.test(t)) return 'Accessories';
 
   return 'Clothes';
 }
 
-// Stable accessory price between 30-50 (per-item consistent)
 function stableAccessoryPrice(title){
   var choices=[30,35,40,45,50];
   var s=String(title||'');
@@ -446,7 +433,6 @@ function stableAccessoryPrice(title){
   return choices[sum % choices.length];
 }
 
-// Apply your pricing rules exactly
 function priceFor(section, title){
   if(section==='Shoes') return 80.00;
   if(section==='Coats') return 100.00;
@@ -455,8 +441,6 @@ function priceFor(section, title){
   if(section==='Trousers') return 50.00;
   if(section==='Tracksuits') return 65.00;
   if(section==='Accessories') return stableAccessoryPrice(title);
-
-  // Other clothes: must be >= 30 (as you said)
   return 35.00;
 }
 
@@ -470,7 +454,6 @@ function sizeLabel(sec){
   return isShoeSection(sec) ? 'Shoe size' : 'Size';
 }
 
-// Save selected sizes so they persist
 var SIZEKEY='lt_sizes_v1';
 function loadSizes(){ try{return JSON.parse(localStorage.getItem(SIZEKEY)||'{}')}catch(e){return{}} }
 function saveSizes(o){ try{localStorage.setItem(SIZEKEY,JSON.stringify(o))}catch(e){} }
@@ -584,7 +567,7 @@ function renderFeatured(){
 function wireSizePickers(scope){
   var nodes = scope.querySelectorAll('select[data-size-for]');
   for(var i=0;i<nodes.length;i++){
-    nodes[i].addEventListener('change', function(e){
+    nodes[i].addEventListener('change', function(){
       setSize(this.getAttribute('data-size-for'), this.value);
     });
   }
@@ -611,21 +594,71 @@ document.addEventListener('click',function(e){
   if(FILTER.section==='Favourites') renderGrid();
 });
 
-// ===================== ORDER BUTTON (NO PAYMENT YET) =====================
-// For now: show a clean “coming soon” alert with size + item.
-// Later we swap this to Stripe Checkout.
-document.addEventListener('click', function(e){
+// ===================== STRIPE CHECKOUT (LIVE) =====================
+// Find product by its pid (matches data-order)
+function findProductByPid(id){
+  for(var i=0;i<PRODUCTS.length;i++){
+    if(pid(PRODUCTS[i]) === id) return PRODUCTS[i];
+  }
+  return null;
+}
+
+document.addEventListener('click', async function(e){
   var a = e.target.closest('a.btn.buy');
   if(!a) return;
+
   e.preventDefault();
 
+  // prevent double click
+  if(a.getAttribute('aria-disabled') === 'true') return;
+
   var id = a.getAttribute('data-order');
+  var p = findProductByPid(id);
+  if(!p){
+    alert('Item not found. Please refresh and try again.');
+    return;
+  }
+
+  // selected size
   var sizes = loadSizes();
-  var chosen = sizes[id] || '(not set)';
-  alert("Checkout not enabled yet.\n\nSelected size: " + chosen + "\n\nNext step: we’ll connect Stripe checkout.");
+  var chosen = sizes[id] || (sizeOptions(p.Section)[0] || '');
+
+  // UI loading
+  var originalText = a.textContent;
+  a.setAttribute('aria-disabled','true');
+  a.textContent = 'Redirecting…';
+
+  try{
+    var resp = await fetch('/api/create-checkout-session', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        title: p.Title,
+        price: p.Price,
+        section: p.Section,
+        size: chosen
+      })
+    });
+
+    var data = await resp.json();
+
+    if(data && data.url){
+      window.location.href = data.url;
+      return;
+    }
+
+    console.error('Checkout failed:', data);
+    alert('Checkout failed. Please try again.');
+  } catch(err){
+    console.error(err);
+    alert('Checkout failed. Please try again.');
+  } finally{
+    a.removeAttribute('aria-disabled');
+    a.textContent = originalText;
+  }
 });
 
-// ===================== SEARCH (FIXED) =====================
+// ===================== SEARCH =====================
 function wireSearch(){
   var form=$('#searchForm'), big=$('#bigSearch');
   if(!form || !big) return;
@@ -636,7 +669,6 @@ function wireSearch(){
     renderGrid();
   });
 
-  // Instant search (only after loaded)
   var t=null;
   big.addEventListener('input', function(){
     clearTimeout(t);
