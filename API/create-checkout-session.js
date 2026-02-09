@@ -1,46 +1,53 @@
-const Stripe = require("stripe");
+import Stripe from "stripe";
 
-module.exports = async (req, res) => {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+export default async function handler(req, res) {
+  // ✅ Allow POST only
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).send("Method Not Allowed");
+  }
+
   try {
-    if (req.method !== "POST") {
-      return res.status(405).send("Method not allowed");
+    // Vercel automatically parses JSON if content-type is application/json
+    const { title, amount, size } = req.body || {};
+
+    if (!title || !amount) {
+      return res.status(400).json({ error: "Missing title or amount" });
     }
 
-    const secret = process.env.STRIPE_SECRET_KEY;
-    const siteUrl = process.env.SITE_URL;
-    if (!secret) return res.status(500).send("Missing STRIPE_SECRET_KEY");
-    if (!siteUrl) return res.status(500).send("Missing SITE_URL");
+    // amount should be in pence for GBP
+    const unit_amount = Math.round(Number(amount) * 100);
 
-    const stripe = new Stripe(secret);
-
-    const { title, price, image } = req.body || {};
-    if (!title || typeof price !== "number") {
-      return res.status(400).send("Missing title/price");
-    }
-
-    const unitAmount = Math.round(price * 100); // GBP -> pence
+    const origin =
+      req.headers.origin ||
+      `https://${req.headers.host}`;
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      payment_method_types: ["card"],
       line_items: [
         {
-          quantity: 1,
           price_data: {
             currency: "gbp",
-            unit_amount: unitAmount,
             product_data: {
               name: title,
-              images: image ? [image] : [],
+              description: size ? `Size: ${size}` : undefined,
             },
+            unit_amount,
           },
+          quantity: 1,
         },
       ],
-      success_url: `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/`,
+      success_url: `${origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/`,
     });
 
     return res.status(200).json({ url: session.url });
   } catch (err) {
-    return res.status(500).send(err?.message || "Server error");
+    console.error("Stripe error:", err);
+    return res.status(500).json({ error: err.message || "Server error" });
   }
-};
+}
+
